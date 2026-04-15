@@ -1,35 +1,22 @@
-# UC8: Filter Passenger Bogies Using Streams
+### README: UC9 Group Bogies by Type
 
-## Overview
-This use case demonstrates the application of the Java Stream API to process and filter a collection of passenger bogies. By moving away from imperative loops to a declarative style, the code becomes more readable and maintainable.
+#### Overview
+The **Train Consist Management App** is a console-based Java application simulating a railway system's management of a train’s consist (a collection of bogies attached to an engine)[cite: 1].
 
-## Key Features
-* **Stream API**: Utilizes `stream()` to process the bogie collection.
-* **Filter Operation**: Uses a Lambda expression `(b -> b.capacity > 60)` to select specific elements.
-* **Collectors**: Converts the processed stream back into a `List` using `collect(Collectors.toList())`.
+#### Goal
+The objective of this use case is to group bogies into specific categories using **Java Stream collectors** to provide structured reporting rather than flat lists[cite: 1].
 
-## Requirements
-* Reuse the `Bogie` list logic from UC7.
-* Filter criteria: Bogie capacity must be greater than 60.
-* Display both the original and the filtered results.
+#### Key Concepts [cite: 1]
+* **`Collectors.groupingBy()`**: A stream collector that classifies elements based on a key (e.g., bogie name) and stores them in a `Map`.
+* **Map Output Structure**: The result is a `Map<String, List<Bogie>>` where the key is the category (e.g., "Sleeper") and the value is the list of bogies in that category.
+* **Structured Transformation**: Converts flat data into a hierarchical organization suitable for planning and dashboards.
 
-## Expected Output
-```text
-All Bogies:
-Sleeper -> 72
-AC Chair -> 56
-First Class -> 24
-General -> 90
+#### Key Requirements [cite: 1]
+* Reuse existing `Bogie` objects.
+* Apply the `stream()` method followed by `Collectors.groupingBy()`.
+* Ensure the original bogie list remains unchanged after the operation.
 
-Filtered Bogies (Capacity > 60):
-Sleeper -> 72
-General -> 90
-
-UC8 filtering completed.
-```
-
-## Benefits
-* Reduces boilerplate code compared to traditional `for` loops.
-* Improves clarity of business rules through declarative programming.
-* Prepares the codebase for more advanced stream operations like mapping or sorting.
-```
+#### Benefits [cite: 1]
+* Transforms flat collections into meaningful structures.
+* Supports advanced reporting and monitoring.
+* Improves data organization and readability.
