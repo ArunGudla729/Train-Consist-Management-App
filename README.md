@@ -1,30 +1,28 @@
-# Use Case 3: Track Unique Bogie IDs
+# Use Case 4: Maintain Ordered Bogie Consist
 
 ## Project Overview
-This module demonstrates the application of the **Set Interface** in a train management system. The primary goal is to ensure that every bogie added to a train consist has a unique identifier, preventing system errors or duplicate assignments.
+This project simulates the physical management of a train consist using the **LinkedList** collection. By modeling bogies as nodes in a doubly linked list, the system can efficiently handle the attachment and detachment of carriages at various positions.
 
 ## Key Concepts
-*   **HashSet**: A collection that does not allow duplicate elements and provides fast access via hashing.
-*   **Set Interface**: Defines a collection that ensures uniqueness.
-*   **Automatic Deduplication**: The `add()` method returns `false` if an element already exists, ensuring no manual checks are needed.
-*   **Unordered Storage**: Elements are stored based on their hash code, not their insertion order.
+*   **Node-Based Structure**: Each carriage (node) contains data and links to the previous and next bogies, enabling efficient insertions and deletions.
+*   **Order Preservation**: Maintains the specific physical sequence of train bogies throughout all operations.
+*   **Positional Flexibility**: Demonstrates the ability to insert elements into the middle of the consist without shifting the entire underlying array.
 
-## Requirements
-*   **Data Structure**: `HashSet<String>`
-*   **Methods Used**: `.add()`
-*   **Behavior**: Intentional duplicate entries (e.g., `B8101`) must be ignored.
+## Operations Implemented
+1.  **Sequential Addition**: Building the initial train structure.
+2.  **Mid-Chain Insertion**: Adding a 'Pantry Car' at a specific index.
+3.  **Head/Tail Deletion**: Using `removeFirst()` and `removeLast()` to decouple the engine and guard van.
 
 ## How to Run
 1.  **Compile**:
     ```bash
-    javac UseCase3TrainConsistAgent.java
+    javac UseCase4TrainConsistAgent.java
     ```
 2.  **Execute**:
     ```bash
-    java UseCase3TrainConsistAgent
+    java UseCase4TrainConsistAgent
     ```
 
-## Benefits
-*   **Enforces Business Constraints**: Guarantees no two bogies share the same ID.
-*   **Data Integrity**: Prevents data corruption in the train formation logic.
-*   **Efficiency**: Introduces students to $O(1)$ complexity operations for uniqueness validation.
+## Key Benefits
+*   **Real-World Modeling**: Mirrors the actual chaining behavior of a physical train.
+*   **Efficiency**: Showcases the performance advantages of LinkedList for node-based modifications.
