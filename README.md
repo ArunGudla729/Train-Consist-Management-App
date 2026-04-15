@@ -1,28 +1,32 @@
-# Use Case 4: Maintain Ordered Bogie Consist
+# Use Case 5: Preserve Insertion Order of Bogies
 
 ## Project Overview
-This project simulates the physical management of a train consist using the **LinkedList** collection. By modeling bogies as nodes in a doubly linked list, the system can efficiently handle the attachment and detachment of carriages at various positions.
+This project demonstrates the use of the **LinkedHashSet** collection within the Train Consist Management system. It provides a solution where both **uniqueness** (no duplicate bogies) and **insertion order** (physical sequence) are critical requirements.
 
 ## Key Concepts
-*   **Node-Based Structure**: Each carriage (node) contains data and links to the previous and next bogies, enabling efficient insertions and deletions.
-*   **Order Preservation**: Maintains the specific physical sequence of train bogies throughout all operations.
-*   **Positional Flexibility**: Demonstrates the ability to insert elements into the middle of the consist without shifting the entire underlying array.
+*   **LinkedHashSet**: A hybrid collection (Hash table + Linked List) that maintains a doubly-linked list through its entries to preserve the order in which elements were inserted.
+*   **Set Interface**: Ensures that the same bogie cannot be attached more than once, protecting the train from invalid duplicate attachments.
+*   **Automatic Deduplication**: The system ignores duplicate entries internally, removing the need for manual validation logic.
+*   **Ordered Iteration**: Bogies are returned in the exact sequence they were connected to the engine.
 
-## Operations Implemented
-1.  **Sequential Addition**: Building the initial train structure.
-2.  **Mid-Chain Insertion**: Adding a 'Pantry Car' at a specific index.
-3.  **Head/Tail Deletion**: Using `removeFirst()` and `removeLast()` to decouple the engine and guard van.
+## Requirements
+*   **Data Structure**: `LinkedHashSet<String>`
+*   **Core Flow**:
+    1. Insert unique bogies.
+    2. Attempt to insert a duplicate.
+    3. Verify that the output remains unique and ordered.
 
 ## How to Run
 1.  **Compile**:
     ```bash
-    javac UseCase4TrainConsistAgent.java
+    javac UseCase5TrainConsistAgent.java
     ```
 2.  **Execute**:
     ```bash
-    java UseCase4TrainConsistAgent
+    java UseCase5TrainConsistAgent
     ```
 
 ## Key Benefits
-*   **Real-World Modeling**: Mirrors the actual chaining behavior of a physical train.
-*   **Efficiency**: Showcases the performance advantages of LinkedList for node-based modifications.
+*   **Business Rules**: Enforces the real-world rule that a specific bogie cannot exist in two places at once.
+*   **Physical Integrity**: Preserves the actual physical attachment sequence of the train.
+*   **Predictable Output**: Provides safe and predictable composition logic compared to a standard `HashSet`.
