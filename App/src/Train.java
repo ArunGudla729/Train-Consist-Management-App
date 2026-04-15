@@ -1,52 +1,42 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-/**
- * *****************************************************************************
- * MAIN CLASS - UseCase6TrainConsistMapApp
- * *****************************************************************************
- * Use Case 6: Map Bogie to Capacity (HashMap)
- * * Description:
- * This class associates each bogie with its seating or
- * load capacity using a key-value mapping structure.
- * * At this stage, the application:
- * - Creates a HashMap for bogie-capacity mapping
- * - Inserts capacity values for each bogie
- * - Iterates through map entries
- * - Displays bogie and capacity information
- * * This caps lookup-based access using HashMap.
- * * Author: Developer
- * Version: 6.0
- * *****************************************************************************
- */
+// Bogie class with name and capacity
+class Bogie {
+    String name;
+    int capacity;
+
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + capacity + " seats)";
+    }
+}
+
 public class Train {
-
     public static void main(String[] args) {
+        System.out.println("=== Train Consist Management App ===");
 
-        System.out.println("--------------------------------------------------");
-        System.out.println(" UC6 : Map Bogie to Capacity (HashMap) ");
-        System.out.println("--------------------------------------------------\n");
+        // Using a List to store Bogie objects
+        List<Bogie> bogies = new ArrayList<>();
 
-        // HashMap stores data in key - value format
-        Map<String, Integer> capacityMap = new HashMap<>();
+        // Adding passenger bogies
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
 
-        // Insert bogie capacities
-        // Using put() method to map bogie names (keys) to capacities (values)
-        capacityMap.put("Sleeper", 72);
-        capacityMap.put("AC Chair", 56);
-        capacityMap.put("First Class", 24);
-        capacityMap.put("Rectangular Goods", 100);
-        capacityMap.put("Cylindrical Goods", 80);
+        System.out.println("Before Sorting: " + bogies);
 
-        System.out.println("Bogie Capacity Details:");
-        System.out.println("-----------------------");
+        // Applying Comparator to sort by capacity in descending order
+        // Use .reversed() to see high-capacity bogies first
+        bogies.sort(Comparator.comparingInt((Bogie b) -> b.capacity).reversed());
 
-        // Iterate over the map using entrySet()
-        // Provides a view of the entire map as a set of entries
-        for (Map.Entry<String, Integer> entry : capacityMap.entrySet()) {
-            System.out.println("Bogie: " + entry.getKey() + " | Capacity: " + entry.getValue());
+        System.out.println("After Sorting (Highest Capacity First):");
+        for (Bogie b : bogies) {
+            System.out.println("- " + b);
         }
-
-        System.out.println("\nProgram continues...");
     }
 }
