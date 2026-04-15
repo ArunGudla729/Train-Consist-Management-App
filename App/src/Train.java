@@ -1,43 +1,53 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * MAIN CLASS - UseCase2TrainConsistAgent
- * Use Case 2: Add Passenger Bogies to Train
- * Description: Demonstrates how passenger bogies can be managed
- * dynamically using ArrayList operations.
+ * =========================================================================
+ * MAIN CLASS - UseCase3TrainConsistAgent
+ * =========================================================================
+ * Use Case 3: Track Unique Bogie IDs
+ *
+ * Description:
+ * This class ensures that duplicate Bogie IDs are not added into
+ * the train formation using HashSet.
+ *
+ * Flow:
+ * 1. User adds bogie IDs.
+ * 2. System inserts into HashSet.
+ * 3. Duplicates are ignored automatically.
+ * 4. Unique IDs are displayed.
+ *
+ * Author: Developer
+ * Version: 2.0
  */
 public class Train {
     public static void main(String[] args) {
-        // Output Header
-        System.out.println("==============================================");
-        System.out.println(" UC2 - Add Passenger Bogies to Train ");
-        System.out.println("==============================================\n");
+        // Output Header per Screenshot 1 & 3
+        System.out.println("----------------------------------------------");
+        System.out.println(" UC3 - Track Unique Bogie IDs ");
+        System.out.println("----------------------------------------------\n");
 
-        // 1. Create an ArrayList to hold passenger bogies
-        List<String> passengerBogies = new ArrayList<>();
+        // Requirement: Create a HashSet<String> for bogie IDs
+        Set<String> bogies = new HashSet<>();
 
-        // 2. CREATE: Add bogies (Sleeper, AC Chair, First Class)
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // Requirement: Add IDs including intentional duplicates
+        bogies.add("B8101");
+        bogies.add("B8102");
+        bogies.add("B8103");
+        bogies.add("B8104");
 
-        System.out.println("After Adding Bogies:");
-        System.out.println("Passenger Bogies : " + passengerBogies + "\n");
+        // Duplicate entries will be ignored internally by HashSet
+        bogies.add("B8101"); // Duplicate entry
+        bogies.add("B8102"); // Duplicate entry
 
-        // 3. DELETE: Remove "AC Chair"
-        passengerBogies.remove("AC Chair");
-        System.out.println("After Removing \"AC Chair\":");
-        System.out.println("Passenger Bogies : " + passengerBogies + "\n");
+        // Requirement: Print the final set after insertion
+        System.out.println("Bogie IDs After Insertion:");
+        System.out.println(bogies + "\n");
 
-        // 4. READ/CHECK: Check if "Sleeper" exists
-        System.out.println("Checking if \"Sleeper\" exists:");
-        System.out.println("Contains Sleeper? : " + passengerBogies.contains("Sleeper") + "\n");
+        // Requirement: Observe that duplicates are removed automatically
+        System.out.println("Note:");
+        System.out.println("Duplicates are automatically ignored by HashSet.\n");
 
-        // 5. Final Train Consist Output
-        System.out.println("Final Train Passenger Consist:");
-        System.out.println(passengerBogies + "\n");
-
-        System.out.println("UC2 operations completed successfully...");
+        System.out.println("UC3 uniqueness validation completed...");
     }
 }
