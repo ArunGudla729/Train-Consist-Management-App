@@ -1,46 +1,41 @@
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 class Bogie {
-    private String name;
-    private int capacity;
+    String name;
+    int capacity;
 
-    public Bogie(String name, int capacity) {
+    Bogie(String name, int capacity) {
         this.name = name;
         this.capacity = capacity;
     }
 
-    public String getName() {
-        return name;
-    }
-
     @Override
     public String toString() {
-        return "Bogie{name='" + name + "', capacity=" + capacity + "}";
+        return name + " (Capacity: " + capacity + ")";
     }
 }
 
 public class Train {
     public static void main(String[] args) {
-        // 1. User creates a list of bogies
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper", 72),
-                new Bogie("AC Chair", 40),
-                new Bogie("Sleeper", 72),
-                new Bogie("First Class", 24),
-                new Bogie("AC Chair", 40)
-        );
+        // Create List of bogies
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 64));
+        bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("Sleeper", 72));
 
-        // 2. System converts the list into a stream
-        // 3. groupingBy() collector is applied
-        // 4. Bogies are grouped into a Map<String, List<Bogie>>
-        Map<String, List<Bogie>> groupedBogies = bogies.stream()
-                .collect(Collectors.groupingBy(Bogie::getName));
+        System.out.println("Bogies in Train:");
+        bogies.forEach(System.out::println);
 
-        // 5. Grouped result is displayed
-        System.out.println("Grouped Bogies by Type:");
-        groupedBogies.forEach((type, list) -> {
-            System.out.println(type + ": " + list);
-        });
+        // AGGREGATE USING REDUCE
+        // 1. map() extracts capacity field from Bogie object
+        // 2. reduce() sums the extracted capacities
+        int totalSeats = bogies.stream()
+                .map(b -> b.capacity)
+                .reduce(0, Integer::sum);
+
+        System.out.println("\n--- Train Statistics ---");
+        System.out.println("Total Seating Capacity: " + totalSeats);
     }
 }
