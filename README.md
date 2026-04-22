@@ -1,169 +1,27 @@
-# 🚆 Train Consist Management App
+# Train Consist Management App - UC13 Performance Benchmark
 
-## 📌 Overview
+## Overview
+This application performs a performance comparison between traditional **Loop-Based Processing** and modern **Stream-Based Processing**. It serves as a benchmarking tool to help developers make evidence-driven optimization decisions rather than assuming one method is always superior[cite: 1].
 
-The **Train Consist Management App** is a Java-based application designed to model and validate train composition using Object-Oriented Programming principles.
+## Key Features
+* **High-Resolution Timing**: Uses `System.nanoTime()` to measure execution duration in nanoseconds[cite: 1].
+* **Filtering Logic**: Filters a dataset of bogies based on a seat capacity threshold (e.g., capacity > 60)[cite: 1].
+* **Benchmarking**: Compares the speed of imperative (loops) vs. declarative (streams) coding styles[cite: 1].
 
-It focuses on ensuring **safety compliance of goods bogies** based on predefined domain constraints.
+## How to Run
+1. Ensure you have Java JDK 8 or higher installed.
+2. Save the code in a file named `Train.java`.
+3. Compile the program:
+   ```bash
+   javac Train.java
+4. Run the application:
 
----
-
-## 🎯 Objective
-
-To simulate a train system where different types of goods bogies are added and validated against safety rules.
-
----
-
-## 🧠 Key Concept (UC12)
-
-### **Safety Compliance Check for Goods Bogies**
-
-**Rule Implemented:**
-
-* Bogies carrying **EXPLOSIVE cargo** must be **CYLINDRICAL in shape**
-* Any violation marks the entire train as **NOT SAFE**
-
----
-
-## 🏗️ Project Structure
-
-```
-Train-Consist-Management-App/
-│
-├── App/
-│   └── src/
-│       └── Train.java
-│
-├── README.md
-```
-
----
-
-## ⚙️ Technologies Used
-
-* Java (JDK 23)
-* Object-Oriented Programming (OOP)
-* VS Code / IntelliJ IDEA
-
----
-
-## 🧩 OOP Concepts Used
-
-* **Abstraction** → `abstract class Bogie`
-* **Inheritance** → `GoodsBogie extends Bogie`
-* **Polymorphism** → `isSafetyCompliant()` method
-* **Encapsulation** → Controlled data access using private members
-
----
-
-## 🚄 Classes Description
-
-### 1. **Bogie (Abstract Class)**
-
-* Base class for all bogie types
-* Defines:
-
-  * `id`
-  * `isSafetyCompliant()` (abstract method)
-
----
-
-### 2. **GoodsBogie**
-
-* Extends `Bogie`
-* Contains:
-
-  * `CargoType` (PETROLEUM, COAL, GRAIN, EXPLOSIVE)
-  * `Shape` (CYLINDRICAL, OPEN, BOX)
-* Implements safety validation logic
-
----
-
-### 3. **TrainManager**
-
-* Manages a list of bogies
-* Performs:
-
-  * Addition of bogies
-  * Safety compliance check
-  * Report generation
-
----
-
-### 4. **Train (Main Class)**
-
-* Entry point of the program
-* Creates sample train configuration
-* Triggers safety validation
-
----
-
-## ▶️ How to Run
-
-### Step 1: Navigate to source folder
-
-```bash
-cd App/src
-```
-
-### Step 2: Compile
-
-```bash
-javac Train.java
-```
-
-### Step 3: Run
-
-```bash
+Bash
 java Train
-```
+Key Concepts 
+[cite: 1]
+Micro-Measurement Awareness: Small code sections require precise timing rather than coarse millisecond clocks.
 
----
+Evidence-Driven Optimization: Decisions should be based on measured performance results.
 
-## 📊 Sample Output
-
-```
-UC12 - Safety Compliance Check for Goods Bogies
-================================================
-
-Goods Bogies in Train:
-Cylindrical -> Petroleum
-Open -> Coal
-Box -> Grain
-Box -> Explosive
-
-Safety Compliance Status: false
-Train formation is NOT SAFE.
-
-UC12 safety validation completed...
-```
-
----
-
-## ✅ Features
-
-* Validates train safety based on domain rules
-* Clean and structured OOP design
-* Easily extendable for new bogie types or rules
-* Clear console-based reporting
-
----
-
-## 🔮 Future Enhancements
-
-* Add passenger bogies
-* GUI using JavaFX or Swing
-* Database integration (PostgreSQL)
-* REST API using Spring Boot
-
----
-
-## 👨‍💻 Author
-
-**Arun Sriram Gudla**
-
----
-
-## 📜 License
-
-This project is for educational purposes.
+Stream API: Utilizes .filter() and .collect() pipelines for data processing.
