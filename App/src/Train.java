@@ -1,80 +1,57 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
-// Custom Runtime Exception for safety violations 
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
+public class Train {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 1. User provides passenger bogie capacities 
+        System.out.println("Enter the number of passenger bogies:");
+        int n = scanner.nextInt();
+        int[] capacities = new int[n];
+
+        System.out.println("Enter the capacities for " + n + " bogies:");
+        for (int i = 0; i < n; i++) {
+            capacities[i] = scanner.nextInt();
+        }
+
+        System.out.println("\nOriginal Capacities:");
+        displayArray(capacities);
+
+        // 2. Perform Bubble Sort Algorithm 
+        bubbleSort(capacities);
+
+        // 6. Sorted result is displayed 
+        System.out.println("\nSorted Capacities (by Capacity - Ascending):");
+        displayArray(capacities);
+
+        scanner.close();
     }
-}
 
-// Base class for Bogies
-abstract class Bogie {
-    protected String id;
-    public Bogie(String id) { this.id = id; }
-    public abstract String getDetails();
-}
-
-// Goods Bogie class with safety validation [cite: 1]
-class GoodsBogie extends Bogie {
-    private String shape; // "Rectangular" or "Cylindrical"
-    private String cargo;
-
-    public GoodsBogie(String id, String shape) {
-        super(id);
-        this.shape = shape;
-        this.cargo = "Empty";
-    }
-
-    // Method to assign cargo with safety checks [cite: 1]
-    public void assignCargo(String cargoType) {
-        System.out.println("\n--- Attempting to assign [" + cargoType + "] to " + shape + " Bogie (" + id + ") ---");
-        
-        try {
-            // Safety Rule: Petroleum cannot be in Rectangular bogies [cite: 1]
-            if (shape.equalsIgnoreCase("Rectangular") && cargoType.equalsIgnoreCase("Petroleum")) {
-                throw new CargoSafetyException("SAFETY VIOLATION: Petroleum cannot be assigned to a Rectangular bogie.");
+    /**
+     * Implements Bubble Sort logic to sort bogie capacities.
+     * Uses nested loops and swapping logic[cite: 1].
+     */
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        // Outer loop for multiple passes [cite: 1]
+        for (int i = 0; i < n - 1; i++) {
+            // Inner loop to compare adjacent values [cite: 1]
+            for (int j = 0; j < n - i - 1; j++) {
+                // 3. Adjacent values are compared [cite: 1]
+                if (arr[j] > arr[j + 1]) {
+                    // 4. Swap values if out of order [cite: 1]
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
             }
-            this.cargo = cargoType;
-            System.out.println("SUCCESS: Cargo assigned successfully.");
-        } 
-        catch (CargoSafetyException e) {
-            // Catching the exception to prevent program crash [cite: 1]
-            System.err.println("HANDLED EXCEPTION: " + e.getMessage());
-        } 
-        finally {
-            // Mandatory logic that always runs [cite: 1]
-            System.out.println("FINALLY: Cargo validation process completed for Bogie " + id + ".");
         }
     }
 
-    @Override
-    public String getDetails() {
-        return "Goods Bogie [" + id + "] | Shape: " + shape + " | Cargo: " + cargo;
-    }
-}
-
-// Main Class: Train
-public class Train {
-    public static void main(String[] args) {
-        System.out.println("=== Train Consist Management App: UC15 ===");
-
-        // Creating bogies
-        GoodsBogie g1 = new GoodsBogie("G001", "Cylindrical");
-        GoodsBogie g2 = new GoodsBogie("G002", "Rectangular");
-
-        // Case 1: Safe Assignment [cite: 1]
-        g1.assignCargo("Petroleum");
-
-        // Case 2: Unsafe Assignment (Handled) [cite: 1]
-        g2.assignCargo("Petroleum");
-
-        // Case 3: Program continues after exception [cite: 1]
-        g2.assignCargo("Grains");
-
-        System.out.println("\n=== Final Train Consist Status ===");
-        System.out.println(g1.getDetails());
-        System.out.println(g2.getDetails());
-        System.out.println("\nApplication terminated safely.");
+    private static void displayArray(int[] arr) {
+        for (int value : arr) {
+            System.out.print(value + " ");
+        }
+        System.out.println();
     }
 }

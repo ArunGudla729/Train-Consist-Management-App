@@ -1,34 +1,14 @@
-# Train Consist Management - UC15
+# Train Consist Management App - UC16
 
 ## Overview
-This project demonstrates structured exception handling in Java using `try-catch-finally`. It prevents the application from crashing when unsafe cargo assignments are attempted.
+This application simulates a railway system's management of a train consist. It focuses on manually sorting passenger bogie capacities using the Bubble Sort algorithm without relying on built-in Java library methods like `Arrays.sort()`.
 
-## Key Features
-* **Custom Runtime Exception**: Uses `CargoSafetyException` to signal domain-specific safety violations.
-* **Dynamic Validation**: Checks compatibility between bogie shape and cargo type during runtime.
-* **Graceful Failure**: Uses `catch` to handle errors and `finally` for mandatory logging.
-* **System Stability**: Ensures the program continues executing even if one assignment fails.
+## Features
+- **Manual Sorting**: Implements Bubble Sort to organize passenger bogie capacities in ascending order.
+- **Bogie Tracking**: Supports various passenger (Sleeper, AC Chair) and goods bogies.
+- **Algorithmic Logic**: Demonstrates nested loop processing and swapping logic for educational purposes.
 
 ## How to Run
-1.  Ensure you have **Java JDK** installed.
-2.  Save the code as `Train.java`.
-3.  Open a terminal and compile the code:
-    ```bash
-    javac Train.java
-    ```
-4.  Run the application:
-    ```bash
-    java Train
-    ```
-
-## Safety Rules
-* **Petroleum** can only be assigned to **Cylindrical** bogies.
-* Assigning **Petroleum** to a **Rectangular** bogie will trigger a safety exception.
-
-Summary of UC15 logic
-[cite: 1]:
-Try Block: Monitors the cargo assignment logic.
-
-Catch Block: Catches the CargoSafetyException, prints an error, and prevents a crash.
-
-Finally Block: Executes a "validation completed" message regardless of the outcome.
+1. Ensure you have Java (JDK 8 or higher) installed.
+2. Compile the classes: `javac Train.java`
+3. Run the application: `java Train`
