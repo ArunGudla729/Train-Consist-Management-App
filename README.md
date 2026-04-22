@@ -1,27 +1,34 @@
-# Train Consist Management App - UC13 Performance Benchmark
+### README.md
+
+```markdown
+# Train Consist Management App - UC14
 
 ## Overview
-This application performs a performance comparison between traditional **Loop-Based Processing** and modern **Stream-Based Processing**. It serves as a benchmarking tool to help developers make evidence-driven optimization decisions rather than assuming one method is always superior[cite: 1].
+This module implements **UC14: Handle Invalid Bogie Capacity**[cite: 1]. It introduces robust error handling by preventing the creation of passenger bogies with invalid seating capacities (negative or zero) using a **Custom Exception**.
 
 ## Key Features
-* **High-Resolution Timing**: Uses `System.nanoTime()` to measure execution duration in nanoseconds[cite: 1].
-* **Filtering Logic**: Filters a dataset of bogies based on a seat capacity threshold (e.g., capacity > 60)[cite: 1].
-* **Benchmarking**: Compares the speed of imperative (loops) vs. declarative (streams) coding styles[cite: 1].
+* **Custom Exception (`InvalidCapacityException`)**: A domain-specific checked exception[cite: 1].
+* **Fail-Fast Validation**: Capacity is validated immediately during object construction[cite: 1].
+* **Business Rule Enforcement**: Ensures that only bogies with a capacity > 0 can exist in the train consist[cite: 1].
+
+## Technical Concepts Used
+* **Inheritance**: Extending the `Exception` class[cite: 1].
+* **throw/throws**: Explicitly raising and declaring exceptions[cite: 1].
+* **Constructor Validation**: Encapsulating rules within the object's lifecycle[cite: 1].
 
 ## How to Run
-1. Ensure you have Java JDK 8 or higher installed.
-2. Save the code in a file named `Train.java`.
-3. Compile the program:
+1. Save the code as `Train.java`.
+2. Compile the code:
    ```bash
    javac Train.java
-4. Run the application:
+   ```
+3. Run the application:
+   ```bash
+   java Train
+   ```
 
-Bash
-java Train
-Key Concepts 
-[cite: 1]
-Micro-Measurement Awareness: Small code sections require precise timing rather than coarse millisecond clocks.
-
-Evidence-Driven Optimization: Decisions should be based on measured performance results.
-
-Stream API: Utilizes .filter() and .collect() pipelines for data processing.
+## Test Scenarios Covered
+* **Valid Creation**: Bogie with capacity 72 is created successfully[cite: 1].
+* **Zero Capacity**: Throws `InvalidCapacityException` with message "Capacity must be greater than zero"[cite: 1].
+* **Negative Capacity**: Throws `InvalidCapacityException` for negative values[cite: 1].
+```
