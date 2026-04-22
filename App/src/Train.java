@@ -1,104 +1,72 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-// Abstract Base Class
-abstract class Bogie {
-    protected String id;
+/**
+ * UC13: Performance Comparison (Loops vs Streams)
+ * This class compares execution time of loop-based filtering 
+ * versus stream-based filtering using System.nanoTime().
+ */
+public class Train {
 
-    public Bogie(String id) {
-        this.id = id;
-    }
+    // Bogie model representing a train carriage
+    static class Bogie {
+        String id;
+        int capacity;
 
-    public abstract boolean isSafetyCompliant();
-}
-
-// Goods Bogie specialized class
-class GoodsBogie extends Bogie {
-
-    public enum CargoType { PETROLEUM, COAL, GRAIN, EXPLOSIVE }
-    public enum Shape { CYLINDRICAL, OPEN, BOX }
-
-    private CargoType cargoType;
-    private Shape shape;
-
-    public GoodsBogie(String id, CargoType cargoType, Shape shape) {
-        super(id);
-        this.cargoType = cargoType;
-        this.shape = shape;
-    }
-
-    // Safety Rule (UC12)
-    @Override
-    public boolean isSafetyCompliant() {
-        // EXPLOSIVE must be in CYLINDRICAL
-        if (cargoType == CargoType.EXPLOSIVE && shape != Shape.CYLINDRICAL) {
-            return false;
-        }
-        return true;
-    }
-
-    // For formatted output
-    @Override
-    public String toString() {
-        return capitalize(shape.name()) + " -> " + capitalize(cargoType.name());
-    }
-
-    private String capitalize(String text) {
-        return text.charAt(0) + text.substring(1).toLowerCase();
-    }
-}
-
-// Train Management Class
-class TrainManager {
-    private List<Bogie> bogies = new ArrayList<>();
-
-    public void addBogie(Bogie bogie) {
-        bogies.add(bogie);
-    }
-
-    public void checkTotalSafety() {
-
-        System.out.println("UC12 - Safety Compliance Check for Goods Bogies");
-        System.out.println("================================================");
-
-        System.out.println("\nGoods Bogies in Train:");
-
-        for (Bogie b : bogies) {
-            System.out.println(b);
+        Bogie(String id, int capacity) {
+            this.id = id;
+            this.capacity = capacity;
         }
 
-        boolean isSafe = true;
+        public int getCapacity() {
+            return capacity;
+        }
+    }
 
+    public static void main(String[] args) {
+        // 1. Prepare a collection of bogies (Large dataset for benchmarking)
+        List<Bogie> bogies = new ArrayList<>();
+        for (int i = 0; i < 100000; i++) {
+            bogies.add(new Bogie("B" + i, (int) (Math.random() * 100)));
+        }
+
+        System.out.println("Starting Performance Benchmark...\n");
+
+        // --- Loop-Based Filtering ---
+        long startTimeLoop = System.nanoTime(); // Record start time
+        List<Bogie> loopFiltered = new ArrayList<>();
         for (Bogie b : bogies) {
-            if (!b.isSafetyCompliant()) {
-                isSafe = false;
+            if (b.getCapacity() > 60) {
+                loopFiltered.add(b);
             }
         }
+        long endTimeLoop = System.nanoTime(); // Record end time
+        long durationLoop = endTimeLoop - startTimeLoop; // Calculate elapsed time
 
-        System.out.println("\nSafety Compliance Status: " + isSafe);
+        // --- Stream-Based Filtering ---
+        long startTimeStream = System.nanoTime(); // Record start time
+        List<Bogie> streamFiltered = bogies.stream()
+                .filter(b -> b.getCapacity() > 60)
+                .collect(Collectors.toList());
+        long endTimeStream = System.nanoTime(); // Record end time
+        long durationStream = endTimeStream - startTimeStream; // Calculate elapsed time
 
-        if (isSafe) {
-            System.out.println("Train formation is SAFE.");
+        // 2. Display Performance Results
+        System.out.println("Loop-Based Results:");
+        System.out.println("- Bogies Found: " + loopFiltered.size());
+        System.out.println("- Execution Time: " + durationLoop + " ns");
+
+        System.out.println("\nStream-Based Results:");
+        System.out.println("- Bogies Found: " + streamFiltered.size());
+        System.out.println("- Execution Time: " + durationStream + " ns");
+
+        // Comparison Logic
+        System.out.println("\n--- Summary ---");
+        if (durationLoop < durationStream) {
+            System.out.println("Result: Loop-based filtering was faster by " + (durationStream - durationLoop) + " ns.");
         } else {
-            System.out.println("Train formation is NOT SAFE.");
+            System.out.println("Result: Stream-based filtering was faster by " + (durationLoop - durationStream) + " ns.");
         }
-
-        System.out.println("\nUC12 safety validation completed...");
-    }
-}
-
-// Main Class
-public class Train {
-    public static void main(String[] args) {
-
-        TrainManager myTrain = new TrainManager();
-
-        // Matching your expected output style
-        myTrain.addBogie(new GoodsBogie("G001", GoodsBogie.CargoType.PETROLEUM, GoodsBogie.Shape.CYLINDRICAL));
-        myTrain.addBogie(new GoodsBogie("G002", GoodsBogie.CargoType.COAL, GoodsBogie.Shape.OPEN));
-        myTrain.addBogie(new GoodsBogie("G003", GoodsBogie.CargoType.GRAIN, GoodsBogie.Shape.BOX));
-        myTrain.addBogie(new GoodsBogie("G004", GoodsBogie.CargoType.EXPLOSIVE, GoodsBogie.Shape.BOX)); // invalid
-
-        myTrain.checkTotalSafety();
     }
 }
