@@ -1,34 +1,34 @@
-### README.md
-
-```markdown
-# Train Consist Management App - UC14
+# Train Consist Management - UC15
 
 ## Overview
-This module implements **UC14: Handle Invalid Bogie Capacity**[cite: 1]. It introduces robust error handling by preventing the creation of passenger bogies with invalid seating capacities (negative or zero) using a **Custom Exception**.
+This project demonstrates structured exception handling in Java using `try-catch-finally`. It prevents the application from crashing when unsafe cargo assignments are attempted.
 
 ## Key Features
-* **Custom Exception (`InvalidCapacityException`)**: A domain-specific checked exception[cite: 1].
-* **Fail-Fast Validation**: Capacity is validated immediately during object construction[cite: 1].
-* **Business Rule Enforcement**: Ensures that only bogies with a capacity > 0 can exist in the train consist[cite: 1].
-
-## Technical Concepts Used
-* **Inheritance**: Extending the `Exception` class[cite: 1].
-* **throw/throws**: Explicitly raising and declaring exceptions[cite: 1].
-* **Constructor Validation**: Encapsulating rules within the object's lifecycle[cite: 1].
+* **Custom Runtime Exception**: Uses `CargoSafetyException` to signal domain-specific safety violations.
+* **Dynamic Validation**: Checks compatibility between bogie shape and cargo type during runtime.
+* **Graceful Failure**: Uses `catch` to handle errors and `finally` for mandatory logging.
+* **System Stability**: Ensures the program continues executing even if one assignment fails.
 
 ## How to Run
-1. Save the code as `Train.java`.
-2. Compile the code:
-   ```bash
-   javac Train.java
-   ```
-3. Run the application:
-   ```bash
-   java Train
-   ```
+1.  Ensure you have **Java JDK** installed.
+2.  Save the code as `Train.java`.
+3.  Open a terminal and compile the code:
+    ```bash
+    javac Train.java
+    ```
+4.  Run the application:
+    ```bash
+    java Train
+    ```
 
-## Test Scenarios Covered
-* **Valid Creation**: Bogie with capacity 72 is created successfully[cite: 1].
-* **Zero Capacity**: Throws `InvalidCapacityException` with message "Capacity must be greater than zero"[cite: 1].
-* **Negative Capacity**: Throws `InvalidCapacityException` for negative values[cite: 1].
-```
+## Safety Rules
+* **Petroleum** can only be assigned to **Cylindrical** bogies.
+* Assigning **Petroleum** to a **Rectangular** bogie will trigger a safety exception.
+
+Summary of UC15 logic
+[cite: 1]:
+Try Block: Monitors the cargo assignment logic.
+
+Catch Block: Catches the CargoSafetyException, prints an error, and prevents a crash.
+
+Finally Block: Executes a "validation completed" message regardless of the outcome.
