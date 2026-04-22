@@ -1,31 +1,20 @@
-## **README: UC10 - Count Total Seats in Train (reduce)**
+# Train Consist Management App - UC11 (Regex Validation)
 
-### **Overview**
-The **Train Consist Management App** is a console-based Java application that simulates a railway system[cite: 1]. **UC10** introduces functional aggregation to calculate quantitative metrics for a train[cite: 1].
+## Overview
+This module provides strict input validation for the Train Consist Management App[cite: 1]. It ensures that critical identifiers like **Train ID** and **Cargo Code** follow specific formats before being processed by the system to maintain data integrity[cite: 1].
 
-### **The Problem**
-In previous approaches (like UC9), data was grouped but provided no numerical insight[cite: 1]. Administrators need to know the total seating capacity to:
-* Estimate passenger handling capability[cite: 1].
-* Perform effective utilization planning[cite: 1].
+## Features
+* **Regex-based Validation**: Uses `java.util.regex` (Pattern and Matcher) to enforce formatting rules[cite: 1].
+* **Format Enforcement**:
+    * **Train ID**: Must follow the pattern `TRN-xxxx` where `xxxx` is exactly four digits (e.g., TRN-1234)[cite: 1].
+    * **Cargo Code**: Must follow the pattern `PET-YY` where `YY` is exactly two uppercase letters (e.g., PET-AB)[cite: 1].
+* **Error Handling**: Provides immediate feedback if the user enters malformed data[cite: 1].
 
-### **Technical Solution**
-We replace manual loops with a **Stream Pipeline** to compute a single total value[cite: 1]:
-* **`map()` Operation:** Transforms each `Bogie` object into its numeric `capacity`[cite: 1].
-* **`reduce()` Method:** Combines multiple values into one result using `Integer::sum`[cite: 1].
+## How it Works
+1. The user provides input via the console.
+2. The application compiles the required Regex patterns.
+3. The `Matcher.matches()` method checks if the entire input string conforms to the pattern[cite: 1].
+4. The system outputs whether the validation was successful or failed[cite: 1].
 
-### **Key Concepts**
-* **Method Reference:** Uses concise syntax (`Integer::sum`) for aggregation logic[cite: 1].
-* **Identity Value:** The `reduce` operation starts with an identity of `0`, ensuring that an empty list returns a result of 0 rather than an error[cite: 1].
-* **Data Integrity:** The original collection remains unchanged after the stream operation[cite: 1].
-
-### **Expected Output**
-```text
-Bogies in Train:
-Sleeper (Capacity: 72)
-AC Chair (Capacity: 64)
-First Class (Capacity: 24)
-Sleeper (Capacity: 72)
-
---- Train Statistics ---
-Total Seating Capacity: 232
-```
+## Requirements
+* Java Development Kit (JDK) 8 or higher.
