@@ -1,41 +1,45 @@
-import java.util.ArrayList;
-import java.util.List;
-
-class Bogie {
-    String name;
-    int capacity;
-
-    Bogie(String name, int capacity) {
-        this.name = name;
-        this.capacity = capacity;
-    }
-
-    @Override
-    public String toString() {
-        return name + " (Capacity: " + capacity + ")";
-    }
-}
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Train {
     public static void main(String[] args) {
-        // Create List of bogies
-        List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 64));
-        bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("Sleeper", 72));
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Bogies in Train:");
-        bogies.forEach(System.out::println);
+        // Define Regex Patterns [cite: 1]
+        // TRN- followed by exactly 4 digits
+        String trainIdRegex = "TRN-\\d{4}"; 
+        // PET- followed by exactly 2 uppercase letters
+        String cargoCodeRegex = "PET-[A-Z]{2}"; 
 
-        // AGGREGATE USING REDUCE
-        // 1. map() extracts capacity field from Bogie object
-        // 2. reduce() sums the extracted capacities
-        int totalSeats = bogies.stream()
-                .map(b -> b.capacity)
-                .reduce(0, Integer::sum);
+        // Compile Patterns [cite: 1]
+        Pattern trainPattern = Pattern.compile(trainIdRegex);
+        Pattern cargoPattern = Pattern.compile(cargoCodeRegex);
 
-        System.out.println("\n--- Train Statistics ---");
-        System.out.println("Total Seating Capacity: " + totalSeats);
+        // Input: Train ID
+        System.out.print("Enter Train ID (Format: TRN-1234): ");
+        String trainId = scanner.nextLine();
+        
+        // Validate Train ID [cite: 1]
+        Matcher trainMatcher = trainPattern.matcher(trainId);
+        if (trainMatcher.matches()) {
+            System.out.println("✔ Valid Train ID: " + trainId);
+        } else {
+            System.out.println("❌ Invalid Train ID format. Expected format: TRN-1234");
+        }
+
+        // Input: Cargo Code
+        System.out.print("Enter Cargo Code (Format: PET-AB): ");
+        String cargoCode = scanner.nextLine();
+
+        // Validate Cargo Code [cite: 1]
+        Matcher cargoMatcher = cargoPattern.matcher(cargoCode);
+        if (cargoMatcher.matches()) {
+            System.out.println("✔ Valid Cargo Code: " + cargoCode);
+        } else {
+            System.out.println("❌ Invalid Cargo Code format. Expected format: PET-AB (Uppercase only)");
+        }
+
+        scanner.close();
     }
 }
