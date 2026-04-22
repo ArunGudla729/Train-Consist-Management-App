@@ -1,56 +1,32 @@
-import java.util.Scanner;
+import java.util.Arrays;
 
+/**
+ * Use Case 17: Sorting Bogie Names using the optimized Arrays.sort() method.
+ * This replaces manual sorting logic with Java's built-in utility.
+ */
 public class Train {
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        // 1. Define the array of bogie names in a random order
+        String[] bogieNames = {"S2", "A1", "B1", "S1", "H1", "B2"};
 
-        // 1. User provides passenger bogie capacities 
-        System.out.println("Enter the number of passenger bogies:");
-        int n = scanner.nextInt();
-        int[] capacities = new int[n];
+        System.out.println("Original Bogie Order:");
+        printArray(bogieNames);
 
-        System.out.println("Enter the capacities for " + n + " bogies:");
-        for (int i = 0; i < n; i++) {
-            capacities[i] = scanner.nextInt();
-        }
+        // 2. Use the built-in Arrays.sort() method
+        // This handles the sorting logic efficiently in O(n log n) time.
+        Arrays.sort(bogieNames);
 
-        System.out.println("\nOriginal Capacities:");
-        displayArray(capacities);
-
-        // 2. Perform Bubble Sort Algorithm 
-        bubbleSort(capacities);
-
-        // 6. Sorted result is displayed 
-        System.out.println("\nSorted Capacities (by Capacity - Ascending):");
-        displayArray(capacities);
-
-        scanner.close();
+        System.out.println("\nSorted Bogie Order (Lexicographical):");
+        printArray(bogieNames);
     }
 
     /**
-     * Implements Bubble Sort logic to sort bogie capacities.
-     * Uses nested loops and swapping logic[cite: 1].
+     * Helper method to print array elements
      */
-    public static void bubbleSort(int[] arr) {
-        int n = arr.length;
-        // Outer loop for multiple passes [cite: 1]
-        for (int i = 0; i < n - 1; i++) {
-            // Inner loop to compare adjacent values [cite: 1]
-            for (int j = 0; j < n - i - 1; j++) {
-                // 3. Adjacent values are compared [cite: 1]
-                if (arr[j] > arr[j + 1]) {
-                    // 4. Swap values if out of order [cite: 1]
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                }
-            }
-        }
-    }
-
-    private static void displayArray(int[] arr) {
-        for (int value : arr) {
-            System.out.print(value + " ");
+    public static void printArray(String[] array) {
+        for (String element : array) {
+            System.out.print(element + " ");
         }
         System.out.println();
     }
