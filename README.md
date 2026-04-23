@@ -1,26 +1,26 @@
-# UC19: Binary Search for Bogie ID
+# UC20: Exception Handling During Search Operations
 
 ## Project Goal
-The goal of this project is to implement an efficient searching technique to find a specific Bogie ID within a collection of sorted data using the Binary Search algorithm.
+To implement defensive programming techniques by ensuring that search operations are only performed when the system is in a valid state (i.e., the bogie collection is not empty).
 
-## Key Features
-* **Divide-and-Conquer:** Reduces search space by half in each step, ensuring high performance.
-* **Lexicographical Comparison:** Utilizes the `compareTo()` method to handle String-based IDs accurately.
-* **Optimized Performance:** Achieves a time complexity of **O(log n)**, which is significantly faster than a standard linear search.
+## Key Concepts
+* **Defensive Programming:** Validating system state before executing core logic to prevent crashes.
+* **Fail-Fast Principle:** Stopping execution immediately when an invalid condition (empty collection) is detected.
+* **IllegalStateException:** Utilizing standard Java runtime exceptions to provide meaningful feedback when the system state is inappropriate for the requested operation.
 
-## Preconditions
-1.  **Sorted Data:** The Bogie IDs must be in ascending order for the algorithm to function correctly.
-2.  **Unique Keys:** While the algorithm works with duplicates, it is designed to find the index of a specific ID.
+## Requirements Checklist
+- [x] Check if bogie collection is empty before searching.
+- [x] Throw `IllegalStateException` if count is zero.
+- [x] Stop operation immediately upon exception.
+- [x] Provide a user-friendly error message.
 
-## Implementation Flow
-1.  **Input:** User provides a list of sorted IDs and a search key.
-2.  **Initialize:** System sets the `low` index to 0 and `high` index to the end of the array.
-3.  **Find Mid:** Calculate the middle index: `mid = low + (high - low) / 2`.
-4.  **Compare:**
-    * If `key` matches the middle element, the ID is found.
-    * If `key` is greater than the middle element, search the right half.
-    * If `key` is smaller than the middle element, search the left half.
-5.  **Terminate:** Repeat until the ID is found or the range is exhausted.
+## How It Works
+1. **Trigger:** The user initiates a search for a Bogie ID.
+2. **Validation:** The system checks the length of the Bogie array.
+3. **Exception:** If the length is `0`, the system throws an `IllegalStateException` with the message: *"Search failed: No bogies available in the train."*
+4. **Execution:** If validation passes, the binary search algorithm proceeds as normal.
 
 ## Benefits
-Implementing this use case improves search performance in large railway datasets and demonstrates the practical application of algorithmic optimization.
+* **Reliability:** Prevents the system from processing invalid data ranges.
+* **Maintainability:** Makes the code easier to debug by identifying "bad states" early.
+* **User Experience:** Provides specific feedback rather than generic null pointer errors or silent failures.
