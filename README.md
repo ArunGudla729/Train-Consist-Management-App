@@ -1,27 +1,26 @@
-# UC18: Linear Search for Bogie ID (Array-Based Searching)
+# UC19: Binary Search for Bogie ID
 
-## Overview
-This module introduces basic searching logic to the **Train Consist Management App**. It allows operators and maintenance teams to locate a specific bogie ID within a train's consist, even if the list is unsorted[cite: 1].
+## Project Goal
+The goal of this project is to implement an efficient searching technique to find a specific Bogie ID within a collection of sorted data using the Binary Search algorithm.
 
 ## Key Features
-* **Linear Search:** Checks each element one by one until a match is found[cite: 1].
-* **Unsorted Data Handling:** Works correctly regardless of the order of bogies[cite: 1].
-* **Time Complexity:** Operates at **O(n)** performance[cite: 1].
-* **Safe Comparison:** Uses `equals()` for reliable string identification[cite: 1].
+* **Divide-and-Conquer:** Reduces search space by half in each step, ensuring high performance.
+* **Lexicographical Comparison:** Utilizes the `compareTo()` method to handle String-based IDs accurately.
+* **Optimized Performance:** Achieves a time complexity of **O(log n)**, which is significantly faster than a standard linear search.
 
-## How to Run
-1.  **Compile:** `javac BogieSearch.java`
-2.  **Execute:** `java BogieSearch`
-3.  **Input:** Enter a Bogie ID (e.g., `BG309`) when prompted.
+## Preconditions
+1.  **Sorted Data:** The Bogie IDs must be in ascending order for the algorithm to function correctly.
+2.  **Unique Keys:** While the algorithm works with duplicates, it is designed to find the index of a specific ID.
 
-## Test Scenarios [cite: 1]
-| Test Case | Input Key | Expected Result |
-| :--- | :--- | :--- |
-| **Bogie Found** | `BG309` | `true` |
-| **Bogie Not Found** | `BG999` | `false` |
-| **First Element Match** | `BG101` | `true` (Terminates immediately) |
-| **Last Element Match** | `BG550` | `true` (Traverses full list) |
-| **Single Element** | `BG101` | `true` (If array has only one ID) |
+## Implementation Flow
+1.  **Input:** User provides a list of sorted IDs and a search key.
+2.  **Initialize:** System sets the `low` index to 0 and `high` index to the end of the array.
+3.  **Find Mid:** Calculate the middle index: `mid = low + (high - low) / 2`.
+4.  **Compare:**
+    * If `key` matches the middle element, the ID is found.
+    * If `key` is greater than the middle element, search the right half.
+    * If `key` is smaller than the middle element, search the left half.
+5.  **Terminate:** Repeat until the ID is found or the range is exhausted.
 
 ## Benefits
-This approach is simple, reliable, and serves as a fundamental building block for more optimized search techniques (like Binary Search) in future use cases[cite: 1].
+Implementing this use case improves search performance in large railway datasets and demonstrates the practical application of algorithmic optimization.
