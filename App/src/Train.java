@@ -1,33 +1,45 @@
-import java.util.Arrays;
+import java.util.Scanner;
 
-/**
- * Use Case 17: Sorting Bogie Names using the optimized Arrays.sort() method.
- * This replaces manual sorting logic with Java's built-in utility.
- */
 public class Train {
 
-    public static void main(String[] args) {
-        // 1. Define the array of bogie names in a random order
-        String[] bogieNames = {"S2", "A1", "B1", "S1", "H1", "B2"};
-
-        System.out.println("Original Bogie Order:");
-        printArray(bogieNames);
-
-        // 2. Use the built-in Arrays.sort() method
-        // This handles the sorting logic efficiently in O(n log n) time.
-        Arrays.sort(bogieNames);
-
-        System.out.println("\nSorted Bogie Order (Lexicographical):");
-        printArray(bogieNames);
+    /**
+     * Performs a Linear Search to find a Bogie ID in an array.
+     * Key Concept: Sequential Traversal and Early Termination[cite: 1].
+     */
+    public static boolean findBogie(String[] bogieIds, String searchKey) {
+        // Traverse the array sequentially [cite: 1]
+        for (String id : bogieIds) {
+            // Compare each element with the search key using equals() [cite: 1]
+            if (id.equals(searchKey)) {
+                // Early Termination: Stop searching once a match is found [cite: 1]
+                return true;
+            }
+        }
+        // Entire list traversed, no match found [cite: 1]
+        return false;
     }
 
-    /**
-     * Helper method to print array elements
-     */
-    public static void printArray(String[] array) {
-        for (String element : array) {
-            System.out.print(element + " ");
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Requirement: Create an array of bogie IDs [cite: 1]
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+
+        System.out.println("--- Train Consist Management: Bogie Search ---");
+        System.out.print("Enter Bogie ID to search: ");
+        
+        // Requirement: Accept a bogie ID to search [cite: 1]
+        String searchKey = scanner.nextLine().trim();
+
+        boolean found = findBogie(bogieIds, searchKey);
+
+        // Result is displayed to the user [cite: 1]
+        if (found) {
+            System.out.println("Success: Bogie " + searchKey + " found in the consist.");
+        } else {
+            System.out.println("Result: Bogie " + searchKey + " not found.");
         }
-        System.out.println();
+
+        scanner.close();
     }
 }
