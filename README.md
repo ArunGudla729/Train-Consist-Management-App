@@ -1,14 +1,27 @@
-Overview
-In railway management systems, data like bogie names, passenger lists, and schedule IDs must be sorted frequently for reporting and dashboards. While manual algorithms like Bubble Sort are excellent for learning, they are inefficient ($O(n^2)$ complexity) and prone to errors in production.
+# UC18: Linear Search for Bogie ID (Array-Based Searching)
 
-UC17 introduces the use of Arrays.sort(), a highly optimized built-in Java method that provides faster, more reliable, and maintainable code.
+## Overview
+This module introduces basic searching logic to the **Train Consist Management App**. It allows operators and maintenance teams to locate a specific bogie ID within a train's consist, even if the list is unsorted[cite: 1].
 
-Key ConceptsBuilt-in Optimization: Java uses a variation of TimSort (for objects) and Dual-Pivot Quicksort (for primitives), which are significantly faster than Bubble Sort.
+## Key Features
+* **Linear Search:** Checks each element one by one until a match is found[cite: 1].
+* **Unsorted Data Handling:** Works correctly regardless of the order of bogies[cite: 1].
+* **Time Complexity:** Operates at **O(n)** performance[cite: 1].
+* **Safe Comparison:** Uses `equals()` for reliable string identification[cite: 1].
 
-Code Simplicity: 
-Reduces dozens of lines of manual swapping logic to a single method call.
+## How to Run
+1.  **Compile:** `javac BogieSearch.java`
+2.  **Execute:** `java BogieSearch`
+3.  **Input:** Enter a Bogie ID (e.g., `BG309`) when prompted.
 
-Lexicographical Sorting:
- By default, Arrays.sort() on a String array organizes elements in alphabetical order.Implementation StepsInitialize a String array containing bogie names (e.g., "S1", "A1", "B2").
- Import the java.util.Arrays 
- utility class.Apply Arrays.sort(bogieNames) to the array.Display the sorted results to verify the order.
+## Test Scenarios [cite: 1]
+| Test Case | Input Key | Expected Result |
+| :--- | :--- | :--- |
+| **Bogie Found** | `BG309` | `true` |
+| **Bogie Not Found** | `BG999` | `false` |
+| **First Element Match** | `BG101` | `true` (Terminates immediately) |
+| **Last Element Match** | `BG550` | `true` (Traverses full list) |
+| **Single Element** | `BG101` | `true` (If array has only one ID) |
+
+## Benefits
+This approach is simple, reliable, and serves as a fundamental building block for more optimized search techniques (like Binary Search) in future use cases[cite: 1].
